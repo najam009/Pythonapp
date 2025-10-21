@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "✅ Flask backend running successfully with multiple libraries!"
+    return "✅ Flask backend runningsuccessfully with multiple libraries!"
 
 @app.route("/data")
 def data():
