@@ -4,11 +4,14 @@ import pandas as pd
 import datetime
 import requests
 
+from colorama import Fore, Style
+
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return "✅ Flask backend runningsuccessfully with multiple libraries!"
+    print(Fore.GREEN + "Deployment successful!" + Style.RESET_ALL)
 
 @app.route("/data")
 def data():
