@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "✅ Flask backend runningsuccessfully with multiple libraries!"
     print(Fore.GREEN + "Deployment successful!" + Style.RESET_ALL)
-
+    return "✅ Flask backend runningsuccessfully with multiple libraries!"
+    
 @app.route("/data")
 def data():
     # Create a small dataframe
