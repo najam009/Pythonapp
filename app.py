@@ -10,8 +10,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    print(Fore.GREEN + "Deployment successful!" + Style.RESET_ALL)
-    return "✅ Flask backend runningsuccessfully with multiple libraries!"
+    message = "✅ Flask backend running successfully with multiple libraries!"
+    print(Fore.GREEN + "Deployment successful!" + Style.RESET_ALL, flush=True)
+    return f"{message}<br><br><b style='color:green;'>Deployment successful!</b>"
     
 @app.route("/data")
 def data():
