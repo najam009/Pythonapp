@@ -29,7 +29,22 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            # Go to project directory
             cd /var/www/pythonapp
+
+            # Activate virtual environment
             source venv/bin/activate
-            pm2 restart flask-app || pm2 start gunicorn --name flask-app -- --bind 0.0.0.0:5000 app:app
+
+            # Upgrade pip and install dependencies
+            pip install --upgrade pip
+            pip install -r requirements.txt
+
+            # Restart app if exists, otherwise start new
+            if pm2 list | grep -q flask-app; then
+              pm2 restart flask-app --update-env
+            else
+              pm2 start gunicorn --name flask-app -- --bind 0.0.0.0:5000 app:app
+            fi
+
+            # Save PM2 process list
             pm2 save
