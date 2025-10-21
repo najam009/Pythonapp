@@ -22,7 +22,7 @@ jobs:
           source: "."
           target: "/var/www/pythonapp"
 
-      - name: Restart Flask app
+      - name: Restart Flask app with PM2
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -31,5 +31,5 @@ jobs:
           script: |
             cd /var/www/pythonapp
             source venv/bin/activate
-            fuser -k 5000/tcp || true
-            nohup gunicorn --bind 0.0.0.0:5000 app:app > gunicorn.log 2>&1 &
+            pm2 restart flask-app || pm2 start gunicorn --name flask-app -- --bind 0.0.0.0:5000 app:app
+            pm2 save
