@@ -39,12 +39,8 @@ jobs:
             pip install --upgrade pip
             pip install -r requirements.txt
 
-            # Restart app if exists, otherwise start new
-            if pm2 list | grep -q flask-app; then
-              pm2 restart flask-app --update-env
-            else
-              pm2 start gunicorn --name flask-app -- --bind 0.0.0.0:5000 app:app
-            fi
+            # Restart app if already running, otherwise start a new one
+            pm2 restart flask-app || pm2 start "python3 app.py" --name flask-app
 
             # Save PM2 process list
             pm2 save
